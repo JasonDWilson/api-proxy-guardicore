@@ -1,0 +1,37 @@
+name: Publish Package
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
+    - name: Nuget Spec
+      run: nuget spec
+    - name: Add project Url to nuget spec
+      run: (gc api-proxy-guardicore.nuspec) -replace "<projectUrl>http://project_url_here_or_delete_this_line/</projectUrl>", "<projectUrl>https://github.com/JasonDWilson/api-proxy-guardicore</projectUrl>" | Out-File -encoding ASCII api-proxy-guardicore.nuspec
+    - name: Remove icon line
+      run: (gc api-proxy-guardicore.nuspec) | Where-Object { $_ -notmatch 'icon_url_here_or_delete_this_line' } | Out-File -encoding ASCII api-proxy-guardicore.nuspec
+    - name: remove release notes
+      run: (gc api-proxy-guardicore.nuspec) | Where-Object { $_ -notmatch 'Summary of changes' } | Out-File -encoding ASCII api-proxy-guardicore.nuspec
+    - name: Add repository to nuget spec
+      run: (gc <proj file name without csproj>.nuspec) -replace "</metadata>", "<repository type='git' url='https://github.com/JasonDWilson/api-proxy-guardicore' /></metadata>" | Out-File -encoding ASCII api-proxy-guardicore.nuspec
+    - name: Populate Tags
+      run: (gc api-proxy-guardicore.nuspec) -replace "<tags>Tag1 Tag2</tags>", "<tags>Guardicore Centra Api .Net</tags>" | Out-File -encoding ASCII api-proxy-guardicore.nuspec
+    - name: Nuget Pack
+      run: nuget pack -Prop Configuration=Release
+    - name: Nuget Push
+      run: dotnet nuget push *.nupkg -s https://api.nuget.org/v3/index.json --skip-duplicate --api-key ${{ secrets.JWPRO_NUGET_KEY }}
