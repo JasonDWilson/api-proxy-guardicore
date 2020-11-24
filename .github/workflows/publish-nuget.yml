@@ -25,7 +25,7 @@ jobs:
       run: (gc api-proxy-guardicore.nuspec) -replace "<projectUrl>http://project_url_here_or_delete_this_line/</projectUrl>", "<projectUrl>https://github.com/JasonDWilson/api-proxy-guardicore</projectUrl>" | Out-File -encoding ASCII api-proxy-guardicore.nuspec
     - name: Remove icon line
       run: (gc api-proxy-guardicore.nuspec) | Where-Object { $_ -notmatch 'icon_url_here_or_delete_this_line' } | Out-File -encoding ASCII api-proxy-guardicore.nuspec
-    - nmae: remove release notes
+    - name: remove release notes
       run: (gc api-proxy-guardicore.nuspec) | Where-Object { $_ -notmatch 'Summary of changes' } | Out-File -encoding ASCII api-proxy-guardicore.nuspec
     - name: Add repository to nuget spec
       run: (gc <proj file name without csproj>.nuspec) -replace "</metadata>", "<repository type='git' url='https://github.com/JasonDWilson/api-proxy-guardicore' /></metadata>" | Out-File -encoding ASCII api-proxy-guardicore.nuspec
