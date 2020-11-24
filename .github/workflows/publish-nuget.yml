@@ -28,7 +28,7 @@ jobs:
     - name: remove release notes
       run: (gc api-proxy-guardicore.nuspec) | Where-Object { $_ -notmatch 'Summary of changes' } | Out-File -encoding ASCII api-proxy-guardicore.nuspec
     - name: Add repository to nuget spec
-      run: (gc <proj file name without csproj>.nuspec) -replace "</metadata>", "<repository type='git' url='https://github.com/JasonDWilson/api-proxy-guardicore' /></metadata>" | Out-File -encoding ASCII api-proxy-guardicore.nuspec
+      run: (gc api-proxy-guardicore.nuspec) -replace "</metadata>", "<repository type='git' url='https://github.com/JasonDWilson/api-proxy-guardicore' /></metadata>" | Out-File -encoding ASCII api-proxy-guardicore.nuspec
     - name: Populate Tags
       run: (gc api-proxy-guardicore.nuspec) -replace "<tags>Tag1 Tag2</tags>", "<tags>Guardicore Centra Api .Net</tags>" | Out-File -encoding ASCII api-proxy-guardicore.nuspec
     - name: Nuget Pack
