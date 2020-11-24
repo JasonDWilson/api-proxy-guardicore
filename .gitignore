@@ -6,3 +6,6 @@
 /.vs/api-proxy-guardicore/v16
 /bin/Debug
 /obj/Debug
+/bin/Release
+/obj/Release
+/packages

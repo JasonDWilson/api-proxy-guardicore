@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Guardicore.Centra.Data")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("api-proxy-guardicore")]
+[assembly: AssemblyDescription("A .Net Wrapper Proxy for th Guardicore Centra API")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Guardicore.Centra.Data")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCompany("jwPro")]
+[assembly: AssemblyProduct("api-proxy-guardicore")]
+[assembly: AssemblyCopyright("2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
